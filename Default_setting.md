@@ -1,6 +1,6 @@
 # 설정기기 셋팅
 
-## PC 설정
+## [PC 설정](https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/#pc-setup)
 * 16.04.5의 버전의 ubuntu를 다운로드및 설치를 진행해준다.
 ```
 $ sudo apt-get update
@@ -63,7 +63,7 @@ $ echo "export TURTLEBOT3_MODEL=waffle_pi" >> ~/.bashrc
   $ source ~/.bashrc
   ```
 
-## 라즈베리파이 4B 셋팅
+## [라즈베리파이 4B 셋팅](https://emanual.robotis.com/docs/en/platform/turtlebot3/sbc_setup/#sbc-setup)
 * 
 
 
