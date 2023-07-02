@@ -63,7 +63,8 @@ $ echo "export TURTLEBOT3_MODEL=waffle_pi" >> ~/.bashrc
   $ source ~/.bashrc
   ```
 
-
+## 라즈베리파이 4B 셋팅
+* 
 
 
 
