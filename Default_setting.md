@@ -45,6 +45,23 @@ $ echo "export TURTLEBOT3_MODEL=waffle_pi" >> ~/.bashrc
 
 ![netWork](networkset.PNG)
 
+  * PC를 Wifi 장치에 연결하고 아래 명령으로 할당된 IP 주소를 찾는다.
+  ```
+  $ ifconfig
+  ```
+  * 파일을 열고 아래 명령으로 ROS IP 설정을 업데이트 한다.
+  ```
+  $ nano ~/.bashrc
+  ```
+    * bashrc 셋팅 : 해당 주소에 맞게 변경
+    ```
+    export ROS_MASTER_URI=http://192.168.0.100:11311
+    export ROS_HSTNAME=192.168.0.100
+    ```
+  * 아래 명령으로 bashrc를 소싱한다.
+  ```
+  $ source ~/.bashrc
+  ```
 
 
 
