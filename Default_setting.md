@@ -64,7 +64,10 @@ $ echo "export TURTLEBOT3_MODEL=waffle_pi" >> ~/.bashrc
   ```
 
 ## [라즈베리파이 4B 셋팅](https://emanual.robotis.com/docs/en/platform/turtlebot3/sbc_setup/#sbc-setup)
-* 
+* 라즈베리 파이 부팅
+  * 모니터의 hdmi 케이블을 Raspberry pi와 연결을한다.
+  * 입력장치, microSD 카드를 삽입하고, 전원을 연결하여 Raspberry Pi를 킨다.
+  * 
 
 
 
