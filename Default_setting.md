@@ -41,7 +41,9 @@ $ echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc
 $ echo "export TURTLEBOT3_MODEL=waffle_pi" >> ~/.bashrc
 ```
 
+* 네트워크 구성
 
+![netWork](networkset.PNG)
 
 
 
