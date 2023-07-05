@@ -6,34 +6,25 @@ from pyzbar import pyzbar
 import rospy
 from std_msgs.msg import String
 
-# 웹캠으로부터 영상 캡처
-cap = cv2.VideoCapture(0)  # 웹캠 인덱스를 적절한 값으로 변경해주세요.
+cap = cv2.VideoCapture(0)
 
-# 인식할 큐알 코드 유형 설정
-allowed_formats = ['QRCODE', 'CODE128', 'EAN13']  # 인식할 큐알 코드 유형을 적절히 선택해주세요.
+allowed_formats = ['QRCODE', 'CODE128', 'EAN13']
 
-# ROS 노드 초기화
 rospy.init_node('qr_code_scanner')
 
-# 원하는 정보를 보내기 위해 ROS publisher를 생성
 info_pub = rospy.Publisher('/qr_code_info', String, queue_size=10)
 
 while True:
-    # 영상 캡처
     ret, frame = cap.read()
 
-    # QR 코드 인식
     barcodes = pyzbar.decode(frame)
 
     for barcode in barcodes:
         barcode_type = barcode.type
 
-        # 인식할 큐알 코드 유형인지 확인
         if barcode_type in allowed_formats:
-            # QR 코드의 내용 추출
             qr_code_data = barcode.data.decode("utf-8")
             
-            # 원하는 QR 코드의 내용에 따라서 정보를 설정
             if qr_code_data == 'https://www.google.co.kr/':
                 info_msg = "Google"
             elif qr_code_data == 'http://naver.com':
@@ -43,17 +34,13 @@ while True:
             else:
                 info_msg = "Unknown"
             
-            # 정보를 publisher를 통해 발행
             info_pub.publish(info_msg)
 
-    # 화면에 영상 출력
     cv2.imshow("QR Code Scanner", frame)
 
-    # 'q' 키를 누르면 종료
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-# 리소스 해제
 cap.release()
 cv2.destroyAllWindows()
 
@@ -63,6 +50,7 @@ cv2.destroyAllWindows()
 
 ```python
 #!/usr/bin/env python
+# -*- coding : utf-8 -*-
 
 import rospy
 from geometry_msgs.msg import Twist
@@ -96,13 +84,26 @@ turn = 0.0
 def vels(speed, turn):
     return "currently:\tspeed %s\tturn %s " % (speed, turn)
 
+# 원하는 정보를 받기 위한 Subscriber 콜백 함수
+def qrCodeInfoCallback(msg):
+    info_msg = msg.data
+    # 원하는 동작에 따라 처리하면 됩니다.
+    if info_msg == "Key: Google":
+        speed = 0.0
+        turn = 0.0
+        print(vels(speed, turn))
+        twist = Twist()
+        twist.linear.x = speed
+        twist.angular.z = turn
+        pub.publish(twist)
+
 if __name__=="__main__":
     settings = termios.tcgetattr(sys.stdin)
 
     rospy.init_node('teleop_twist_keyboard')
 
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
-    info_pub = rospy.Publisher('/qr_code_info', String, queue_size=10)
+    info_sub = rospy.Subscriber('/qr_code_info', String, qrCodeInfoCallback)
 
     status = 0
     try:
@@ -163,5 +164,6 @@ if __name__=="__main__":
         pub.publish(twist)
 
     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
+
 
 ```
