@@ -90,7 +90,7 @@ def vels(speed, turn):
 def qrCodeInfoCallback(msg):
     info_msg = msg.data
     # 원하는 동작에 따라 처리하면 됩니다.
-    if info_msg == "Key: Google":
+    if info_msg == "Google":
         speed = 0.0
         turn = 0.0
         print(vels(speed, turn))
@@ -141,20 +141,6 @@ if __name__=="__main__":
             twist.linear.x = speed
             twist.angular.z = turn
             pub.publish(twist)
-
-            # publisher를 통해 원하는 정보 보내기
-            if key in ['w', 'W', 'x', 'X', 'a', 'A', 'd', 'D', ' ', 's', 'S']:
-                info_msg = "Key: " + key
-                info_pub.publish(info_msg)
-
-                # 추가한 부분: 원하는 정보가 "Key: Google" 인 경우 움직임을 멈추기
-                if info_msg == "Key: Google":
-                    speed = 0.0
-                    turn = 0.0
-                    print(vels(speed, turn))
-                    twist.linear.x = speed
-                    twist.angular.z = turn
-                    pub.publish(twist)
 
     except Exception as e:
         print(e)
