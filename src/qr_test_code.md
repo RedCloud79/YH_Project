@@ -1,6 +1,8 @@
 ## Qr 인식부분
 
 ```python
+#!/usr/bin/env python
+
 import cv2
 from pyzbar import pyzbar
 import rospy
